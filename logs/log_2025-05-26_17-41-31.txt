@@ -2,3 +2,9 @@
 2025-05-26 17:41:31.836225 - Copiado: teste.txt
 2025-05-26 17:41:31.836572 - Backup finalizado com sucesso.
 2025-05-26 17:41:31.836907 - Agendamento configurado: a cada 5 minutos.
+2025-05-26 17:46:32.015047 - Iniciando tarefa agendada...
+2025-05-26 17:46:32.016836 - Iniciando backup de 1 arquivos.
+2025-05-26 17:46:32.019985 - Copiado: teste.txt
+2025-05-26 17:46:32.020571 - Backup finalizado com sucesso.
+2025-05-26 17:46:32.020972 - Tarefa agendada finalizada.
+2025-05-26 17:46:45.867047 - Execução interrompida manualmente.

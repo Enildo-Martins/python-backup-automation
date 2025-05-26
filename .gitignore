@@ -1,0 +1,21 @@
+# Ignorar ambientes virtuais
+venv/
+
+# Arquivos de configuração locais
+.env
+
+# Arquivos temporários do sistema
+__pycache__/
+*.py[cod]
+*.log
+
+# Logs da aplicação
+logs/
+
+# Arquivos do VSCode/Cursor
+.vscode/
+cursor-data/
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
