@@ -1,0 +1,3 @@
+2025-05-26 17:15:45.106618 - Iniciando backup de 1 arquivos.
+2025-05-26 17:15:45.108909 - Copiado: teste.txt
+2025-05-26 17:15:45.109290 - Backup finalizado com sucesso.
