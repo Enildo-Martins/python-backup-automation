@@ -1,0 +1,4 @@
+2025-05-26 17:41:31.832695 - Iniciando backup de 1 arquivos.
+2025-05-26 17:41:31.836225 - Copiado: teste.txt
+2025-05-26 17:41:31.836572 - Backup finalizado com sucesso.
+2025-05-26 17:41:31.836907 - Agendamento configurado: a cada 5 minutos.
