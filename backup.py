@@ -1,5 +1,7 @@
 import os
 import shutil
+import schedule
+import time
 from datetime import datetime
 
 # Caminhos
@@ -43,3 +45,24 @@ def realizar_backup():
 
 if __name__ == '__main__':
     realizar_backup()
+
+# Frequência do agendamento (em minutos)
+INTERVALO_MINUTOS = 5
+
+def job():
+    log(f"Iniciando tarefa agendada...")
+    realizar_backup()
+    log(f"Tarefa agendada finalizada.")
+
+if __name__ == '__main__':
+    # Agendar tarefa
+    schedule.every(INTERVALO_MINUTOS).minutes.do(job)
+    log(f"Agendamento configurado: a cada {INTERVALO_MINUTOS} minutos.")
+
+    try:
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
+    except KeyboardInterrupt:
+        log("Execução interrompida manualmente.")
+        print("\nExecução finalizada pelo usuário.")
