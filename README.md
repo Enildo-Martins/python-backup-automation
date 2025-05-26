@@ -32,5 +32,12 @@ Python 3.10+
 ## Instale as depedencias
     pip install -r requirements.txt
 
+Copie o arquivo `.env.example` para `.env` e personalize conforme seu ambiente:
+    copy .env.example .env  # Windows (cmd)
+
+ou
+
+    cp .env.example .env  # Linux/macOS
+
 ## Execute:
     python backup.py

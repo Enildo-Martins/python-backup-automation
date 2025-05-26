@@ -3,34 +3,37 @@ import shutil
 import schedule
 import time
 from datetime import datetime
+from dotenv import load_dotenv
 
-# Caminhos
-ORIGEM = r'C:\Users\User\Desktop\origem'       # Substitua com sua pasta de origem
-DESTINO = r'C:\Users\User\Desktop\backup'      # Substitua com sua pasta de destino
+# Carregar variáveis do .env
+load_dotenv()
+
+ORIGEM = os.getenv("ORIGEM")
+DESTINO = os.getenv("DESTINO")
+INTERVALO_MINUTOS = int(os.getenv("INTERVALO_MINUTOS", 5))
 LOGS_DIR = 'logs'
 
-# Garante que a pasta de destino e logs existem
-os.makedirs(DESTINO, exist_ok=True)
+# Criar pasta de logs, se não existir
 os.makedirs(LOGS_DIR, exist_ok=True)
 
-# Data e hora atual para organização
-agora = datetime.now()
-data_str = agora.strftime("%Y-%m-%d_%H-%M-%S")
-destino_data = os.path.join(DESTINO, f'backup_{data_str}')
-os.makedirs(destino_data, exist_ok=True)
-
-# Log
-log_file = os.path.join(LOGS_DIR, f'log_{data_str}.txt')
-
 def log(mensagem):
+    """Registra mensagens no log com timestamp."""
+    agora = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    log_file = os.path.join(LOGS_DIR, f"log_{agora}.txt")
     with open(log_file, 'a') as f:
         f.write(f"{datetime.now()} - {mensagem}\n")
 
 def realizar_backup():
+    """Executa o backup dos arquivos da origem para o destino."""
     try:
+        agora = datetime.now()
+        data_str = agora.strftime("%Y-%m-%d_%H-%M-%S")
+        destino_data = os.path.join(DESTINO, f'backup_{data_str}')
+        os.makedirs(destino_data, exist_ok=True)
+
         arquivos = os.listdir(ORIGEM)
         log(f"Iniciando backup de {len(arquivos)} arquivos.")
-        
+
         for arquivo in arquivos:
             origem_arquivo = os.path.join(ORIGEM, arquivo)
             destino_arquivo = os.path.join(destino_data, arquivo)
@@ -38,26 +41,20 @@ def realizar_backup():
             if os.path.isfile(origem_arquivo):
                 shutil.copy2(origem_arquivo, destino_arquivo)
                 log(f"Copiado: {arquivo}")
-        
+
         log("Backup finalizado com sucesso.")
     except Exception as e:
         log(f"Erro ao realizar backup: {str(e)}")
 
-if __name__ == '__main__':
-    realizar_backup()
-
-# Frequência do agendamento (em minutos)
-INTERVALO_MINUTOS = 5
-
 def job():
-    log(f"Iniciando tarefa agendada...")
+    """Tarefa agendada a ser executada."""
+    log("Iniciando tarefa agendada...")
     realizar_backup()
-    log(f"Tarefa agendada finalizada.")
+    log("Tarefa agendada finalizada.")
 
 if __name__ == '__main__':
-    # Agendar tarefa
-    schedule.every(INTERVALO_MINUTOS).minutes.do(job)
     log(f"Agendamento configurado: a cada {INTERVALO_MINUTOS} minutos.")
+    schedule.every(INTERVALO_MINUTOS).minutes.do(job)
 
     try:
         while True:
